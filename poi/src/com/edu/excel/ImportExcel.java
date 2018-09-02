@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -22,7 +23,7 @@ public class ImportExcel {
 		//创建工作簿
 		Workbook workbook =WorkbookFactory.create(inputStream);
 		//创建一个sheet
-		Sheet sheet = workbook.getSheet("Sheet0");
+		Sheet sheet = workbook.getSheet("Sheet1");
 		
 		int rowNum = sheet.getLastRowNum();
 		
@@ -32,7 +33,8 @@ public class ImportExcel {
 			int cellNum = row.getLastCellNum();
 			for(int j=0;j<cellNum;j++){
 				Cell cell=row.getCell(j);
-				cell.setCellType(Cell.CELL_TYPE_STRING);
+//				cell.setCellType(Cell.CELL_TYPE_STRING);
+				cell.setCellType(CellType.STRING);
 				String value = null;
 //				if(!(cell.getStringCellValue().equals(""))) {
 					value=cell.getStringCellValue();
@@ -47,7 +49,7 @@ public class ImportExcel {
 	}
 	public static void main(String[] args) throws Exception {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		InputStream inputStream = new FileInputStream("D:/qq.xls");
+		InputStream inputStream = new FileInputStream("D:/qq.xlsx");
 		
 		String[][] values = getValuesFromExcel(inputStream);
 		List<Question> list = new ArrayList<>();
